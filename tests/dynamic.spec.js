@@ -1,4 +1,5 @@
-const{test,expect} = require('@playwright/test')
+const{test,expect} = require('@playwright/test');
+const { ADDRGETNETWORKPARAMS } = require('node:dns');
 
 test('Verify the user register', async({page}) =>{
 
@@ -159,7 +160,24 @@ await page.locator('//i[@class="fa fa-rss"]')
   await highlight(page, '//a[normalize-space()="Continue Shopping"]')
   await page.locator('//a[normalize-space()="Continue Shopping"]').click()
 
- 
+  //Click on the cart button
+   await highlight(page, '//button[@routerlink="/dashboard/cart"]')
+    await page.locator('//button[@routerlink="/dashboard/cart"]').click()
+
+    await highlight(page,'//h1[normalize-space()="My Cart"]')
+    await expect(page.locator('//h1[normalize-space()="My Cart"]')).toHaveText('My Cart')
+
+    await highlight(page, '//img[@class="itemImg"]')
+    await page.locator('//img[@class="itemImg"]')
+
+    await highlight(page, '//p[normalize-space()="MRP $ 11500"]')
+    await expect(page.locator('//p[normalize-space()="MRP $ 11500"]')).toHaveText(' MRP $ 11500')
+
+    await highlight(page, '//p[@class="stockStatus"]')
+    await expect(page.locator('//p[@class="stockStatus"]')).toHaveText(' In Stock')
+
+    await highlight(page, '//button[normalize-space()="Buy Now"]')
+    await page.locator('//button[normalize-space()="Buy Now"]').click()
 
 //For chcek playwright code at the console
 await page.pause()
@@ -168,7 +186,6 @@ await page.close();
 
 
 //npx playwright test dynamic.spec.js --project=firefox --headed
-
 
 
 })
