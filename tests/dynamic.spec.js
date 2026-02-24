@@ -78,7 +78,10 @@ await page.check('[type="checkbox"]');
 await highlight(page, '[value="Register"]');
 await page.click('[value="Register"]');
 
+await highlight(page, ".headcolor")
 await expect(page.locator(".headcolor")).toContainText('Account Created Successfully')
+
+await highlight(page, '[routerlink="/auth"]')
 await page.locator('[routerlink="/auth"]').click()
 
 // 🔥 LOGIN USING SAME RUNTIME CREDENTIALS WITH HIGHLIGHT
@@ -101,12 +104,62 @@ await highlight(page, "//section[@id='sidebar']//input[@placeholder='search']")
 
 await page.locator("//section[@id='sidebar']//input[@placeholder='search']")
   .fill('ADIDAS ORIGINAL');
-
 await page.keyboard.press('Enter');
+//Add product to cart
+  await highlight(page,'//div[@class="container"]//div[1]//div[1]//div[1]//button[2]')
+  await page.locator('//div[@class="container"]//div[1]//div[1]//div[1]//button[2]').click()
+//View product 
+  await highlight(page, '//div[@class="container"]//div[1]//div[1]//div[1]//button[1]') 
+  await page.locator('//div[@class="container"]//div[1]//div[1]//div[1]//button[1]').click()
 
-  await highlight(page,'//button[normalize-space()="Add To Cart"]')
-  await page.locator('//button[normalize-space()="Add To Cart"]').click()
+//Viwed product details
+//Product heading
+  await highlight(page,'//h2[normalize-space()="ADIDAS ORIGINAL"]' )
+  await expect(page.locator('//h2[normalize-space()="ADIDAS ORIGINAL"]')).toHaveText('ADIDAS ORIGINAL')
 
+ //Product  Price
+ await highlight(page, '//h3[normalize-space()="$ 11500"]')
+ await expect(page.locator('//h3[normalize-space()="$ 11500"]')).toHaveText('$ 11500')
+
+ // Add to cart button
+ await highlight(page,'//button[normalize-space()="Add to Cart"]')
+ await page.locator('//button[normalize-space()="Add to Cart"]').click()
+
+ //Product details
+
+ await highlight(page, '//h6[normalize-space()="product details"]')
+  await expect(page.locator('//h6[normalize-space()="product details"]')).toHaveText('product details')
+  //Apple phone
+
+  await highlight(page, '//p[normalize-space()="Apple phone"]')
+   await expect(page.locator('//p[normalize-space()="Apple phone"]')).toHaveText('Apple phone')
+
+   //share it
+    await highlight(page, '//h6[normalize-space()="Share It"]')
+    await expect(page.locator('//h6[normalize-space()="Share It"]')).toHaveText('Share It')
+
+       //Click on social media icons
+await highlight(page, '//i[@class="fa fa-facebook"]')
+await page.locator('//i[@class="fa fa-facebook"]')
+
+await highlight(page, '//i[@class="fa fa-google-plus"]')
+await page.locator('//i[@class="fa fa-google-plus"]')
+
+
+await highlight(page, '//i[@class="fa fa-twitter"]')
+await page.locator('//i[@class="fa fa-twitter"]')
+
+await highlight(page, '//i[@class="fa fa-instagram"]')
+await page.locator('//i[@class="fa fa-instagram"]')
+
+await highlight(page, '//i[@class="fa fa-rss"]')
+await page.locator('//i[@class="fa fa-rss"]')
+
+ // click on the continue shopping 
+  await highlight(page, '//a[normalize-space()="Continue Shopping"]')
+  await page.locator('//a[normalize-space()="Continue Shopping"]').click()
+
+ 
 
 //For chcek playwright code at the console
 await page.pause()
@@ -120,44 +173,3 @@ await page.close();
 
 })
 
-/*
-
-/*
-  // Better highlight function
-async function highlight(page, selector) {
-  const element = page.locator(selector);
-  await element.waitFor(); // wait until element is visible
-
-  await element.evaluate(el => {
-    el.style.border = "3px solid red";
-    el.style.backgroundColor = "#99ffa0";
-  });
-}
-  
-await page.locator('//input[@id="firstName"]').fill("khadija")
-
-// Check last name
-await page.locator('//input[@id="lastName"]').fill("Tabassum")
-//Check the email
-await page.locator('//input[@id="userEmail"]').fill('k@yopmail.com')
-//Chcek the Phone number
-await page.locator('//input[@id="userMobile"]').fill('3015034590')
-
-// Select Occupation
-await page.locator('select[formcontrolname="occupation"]').selectOption("Engineer")
-//Select Gender
-await page.locator('[value="Female"]').check()
-    
-//Enter PAssword
-await page.locator('//input[@id="userPassword"]').fill('Ktcv1515@')
-await page.locator('//input[@id="confirmPassword"]').fill('Ktcv1515@')
-
-//Accept terms
-await page.locator('[type="checkbox"]').check()
-//Click register
-
-await page.locator('[value="Register"]').click()
-//await expect(page.locator(".headcolor")).toContainText('Account Created Successfully')
-
-
-*/
