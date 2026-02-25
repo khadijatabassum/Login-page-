@@ -9,6 +9,7 @@ const password = 'Ktcv1515@';
 
 
 // 🔥 Smooth Blink Highlight Function
+
 async function highlight(page, selector) {
   const element = page.locator(selector);
   await element.waitFor();
@@ -19,15 +20,19 @@ async function highlight(page, selector) {
     for (let i = 0; i < 3; i++) {
       el.style.border = "3px solid red";
       el.style.transition = "all 0.2s ease-in-out";
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 100));
 
       el.style.border = "3px solid yellow";
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 100));
     }
 
     el.setAttribute("style", originalStyle);
   });
 }
+  
+
+
+
 
 await page.goto('https://rahulshettyacademy.com/client/#/auth/register')
 // Check page title directly
@@ -106,14 +111,30 @@ await highlight(page, "//section[@id='sidebar']//input[@placeholder='search']")
 await page.locator("//section[@id='sidebar']//input[@placeholder='search']")
   .fill('ADIDAS ORIGINAL');
 await page.keyboard.press('Enter');
+
+//Show result
+ await highlight(page, '//div[@id="res"]')
+  await page.locator('//div[@id="res"]')
+
+//View the product image
+ 
+await highlight(page,'//img[@class="card-img-top"]')
+await page.locator('//img[@class="card-img-top"]')
+
 //Add product to cart
   await highlight(page,'//div[@class="container"]//div[1]//div[1]//div[1]//button[2]')
   await page.locator('//div[@class="container"]//div[1]//div[1]//div[1]//button[2]').click()
 //View product 
   await highlight(page, '//div[@class="container"]//div[1]//div[1]//div[1]//button[1]') 
   await page.locator('//div[@class="container"]//div[1]//div[1]//div[1]//button[1]').click()
+  
+
 
 //Viwed product details
+//view image 
+
+  await highlight(page, '//img[@class="img-fluid"]')
+  await page.locator('//img[@class="img-fluid"]')
 //Product heading
   await highlight(page,'//h2[normalize-space()="ADIDAS ORIGINAL"]' )
   await expect(page.locator('//h2[normalize-space()="ADIDAS ORIGINAL"]')).toHaveText('ADIDAS ORIGINAL')
@@ -176,8 +197,44 @@ await page.locator('//i[@class="fa fa-rss"]')
     await highlight(page, '//p[@class="stockStatus"]')
     await expect(page.locator('//p[@class="stockStatus"]')).toHaveText(' In Stock')
 
+    //subtotal
+    await highlight(page,'//span[normalize-space()="Subtotal"]')
+    await expect(page.locator('//span[normalize-space()="Subtotal"]')).toHaveText('Subtotal')
+
+    await highlight(page,'//li[1]//span[2]')
+    await expect(page.locator('//li[1]//span[2]')).toHaveText('$11500')
+
+    await highlight(page,'//span[normalize-space()="Total"]')
+    await expect(page.locator('//span[normalize-space()="Total"]')).toHaveText('Total')
+
+    await highlight(page,'//li[1]//span[2]')
+    await expect(page.locator('//li[1]//span[2]')).toHaveText('$11500')
+
     await highlight(page, '//button[normalize-space()="Buy Now"]')
     await page.locator('//button[normalize-space()="Buy Now"]').click()
+
+    //Payment the Product
+
+    //Selected product details
+
+  await highlight(page, '//img[@class="iphone"]')
+  await page.locator('//img[@class="iphone"]')
+
+  //item title
+  await highlight(page,'//div[@class="item__title"]')
+  await page.locator('//div[@class="item__title"]')
+// item price
+  await highlight(page,'//div[@class="item__price"]')
+  await page.locator('//div[@class="item__price"]')
+
+  //item quentity
+
+    await highlight(page,'//div[@class="item__quantity"]')
+  await page.locator('//div[@class="item__quantity"]')
+
+  //item description
+  await highlight(page,'//li[normalize-space()="Apple phone"]')
+  await page.locator('//li[normalize-space()="Apple phone"]')
 
 //For chcek playwright code at the console
 await page.pause()
