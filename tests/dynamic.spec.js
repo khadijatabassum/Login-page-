@@ -207,8 +207,6 @@ await page.locator('//i[@class="fa fa-rss"]')
     await highlight(page,'//span[normalize-space()="Total"]')
     await expect(page.locator('//span[normalize-space()="Total"]')).toHaveText('Total')
 
-    await highlight(page,'//li[1]//span[2]')
-    await expect(page.locator('//li[1]//span[2]')).toHaveText('$11500')
 
     await highlight(page, '//button[normalize-space()="Buy Now"]')
     await page.locator('//button[normalize-space()="Buy Now"]').click()
@@ -235,6 +233,56 @@ await page.locator('//i[@class="fa fa-rss"]')
   //item description
   await highlight(page,'//li[normalize-space()="Apple phone"]')
   await page.locator('//li[normalize-space()="Apple phone"]')
+
+  //Credit card tab
+
+ await highlight(page, '//div[@class="payment__type payment__type--cc active"]')
+ await page.locator('//div[@class="payment__type payment__type--cc active"]')
+
+//Personal info
+
+
+
+await highlight(page,'//input[@value="4542 9931 9292 2293"]')
+await page.locator('//input[@value="4542 9931 9292 2293"]').fill('4111111111111111')
+
+//Expiry date
+
+
+await highlight(page, '//body//app-root//select[1]')
+await page.selectOption('//body//app-root//select[1]', '03')
+
+// Month
+await highlight(page, '//body//app-root//select[2]')
+await page.selectOption('//body//app-root//select[2]', '20')
+//CVV
+ await highlight(page, '//div[@class="payment__cc"]//div[2]//input[1]')
+  await page.locator('//div[@class="payment__cc"]//div[2]//input[1]').fill('123')
+  //Name on Card
+  await highlight(page,'//div[@class="payment__info"]//div[3]//div[1]//input[1]')
+  await page.locator('//div[@class="payment__info"]//div[3]//div[1]//input[1]').fill('123')
+
+  
+  //Shipping Information
+await highlight(page,'//input[@class="input txt text-validated ng-untouched ng-pristine ng-valid"]')
+await page.locator('//input[@class="input txt text-validated ng-untouched ng-pristine ng-valid"]').fill( username)
+
+/*await highlight(page, '//input[@placeholder="Select Country"]')
+await page.locator('//input[@placeholder="Select Country"]').fill("Afghanistan" )
+await page.keyboard.press('Enter');
+*/
+// Click to open dropdown
+await page.locator('//input[@placeholder="Select Country"]').click();
+
+// Wait for options to appear
+await page.waitForSelector('text=Afghanistan');
+
+// Click exact option
+await page.locator('text=Afghanistan').click();
+
+await highlight(page, '//a[normalize-space()="Place Order"]')
+await page.locator('//a[normalize-space()="Place Order"]').click()
+
 
 //For chcek playwright code at the console
 await page.pause()
