@@ -122,12 +122,12 @@ await highlight(page,'//img[@class="card-img-top"]')
 await page.locator('//img[@class="card-img-top"]')
 
 //Add product to cart
-  await highlight(page,'//div[@class="container"]//div[1]//div[1]//div[1]//button[2]')
-  await page.locator('//div[@class="container"]//div[1]//div[1]//div[1]//button[2]').click()
+  await highlight(page,'//button[normalize-space()="Add To Cart"][1]')
+  await page.locator('//button[normalize-space()="Add To Cart"][1]').click()
 //View product 
-  await highlight(page, '//div[@class="container"]//div[1]//div[1]//div[1]//button[1]') 
-  await page.locator('//div[@class="container"]//div[1]//div[1]//div[1]//button[1]').click()
-  
+  await highlight(page, '//button[normalize-space()="View"][1]') 
+  await page.locator('//button[normalize-space()="View"]').click()
+
 
 
 //Viwed product details
@@ -142,6 +142,7 @@ await page.locator('//img[@class="card-img-top"]')
  //Product  Price
  await highlight(page, '//h3[normalize-space()="$ 11500"]')
  await expect(page.locator('//h3[normalize-space()="$ 11500"]')).toHaveText('$ 11500')
+ 
 
  // Add to cart button
  await highlight(page,'//button[normalize-space()="Add to Cart"]')
@@ -267,21 +268,35 @@ await page.selectOption('//body//app-root//select[2]', '20')
 await highlight(page,'//input[@class="input txt text-validated ng-untouched ng-pristine ng-valid"]')
 await page.locator('//input[@class="input txt text-validated ng-untouched ng-pristine ng-valid"]').fill( username)
 
-/*await highlight(page, '//input[@placeholder="Select Country"]')
-await page.locator('//input[@placeholder="Select Country"]').fill("Afghanistan" )
+/*
+// Click input
+await page.locator('input[placeholder="Select Country"]').click();
+
+await page.locator('input[placeholder="Select Country"]').fill('Afghanistan');
+
+// Press Arrow Down
+await page.keyboard.press('ArrowDown');
+// Press Enter to select first option
 await page.keyboard.press('Enter');
+await page.getByText('Afghanistan', { exact: true })
+
 */
-// Click to open dropdown
-await page.locator('//input[@placeholder="Select Country"]').click();
 
-// Wait for options to appear
-await page.waitForSelector('text=Afghanistan');
+const Countryselect= page.locator('//input[@placeholder="Select Country"]')
+await Countryselect.clear({delay: 1000})
+await Countryselect.pressSequentially('afg',{delay: 1000})
+await page.locator("//section[@class='ta-results list-group ng-star-inserted']").getByRole('button')
+.filter({hasText: ' Afghanistan'}).click()
 
-// Click exact option
-await page.locator('text=Afghanistan').click();
 
-await highlight(page, '//a[normalize-space()="Place Order"]')
-await page.locator('//a[normalize-space()="Place Order"]').click()
+await page.locator('a:has-text("PLACE ORDER")').click()
+
+
+await page.screenshot({ 
+  path: 'fullpage.png',
+  fullPage: true 
+});
+
 
 
 //For chcek playwright code at the console
@@ -291,6 +306,9 @@ await page.close();
 
 
 //npx playwright test dynamic.spec.js --project=firefox --headed
+//npx playwright test --ui
+//npx playwright test --last-failed
+
 
 
 })
