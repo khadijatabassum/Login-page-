@@ -105,6 +105,27 @@ test('Verify the user register', async ({ page }) => {
   await page.click('#login');
 
 
+  //Click on differenet pages
+
+  //click on home page
+
+  await highlight(page,'//button[normalize-space()="HOME"]')
+  await page.locator('//button[normalize-space()="HOME"]').click()
+
+    //click on Orders page
+
+  await highlight(page,'//button[@routerlink="/dashboard/myorders"]')
+  await page.locator('//button[@routerlink="/dashboard/myorders"]').click()
+ //click on Cart page
+
+  //await highlight(page,'//button[@routerlink="/dashboard/cart"]')
+  //await page.locator('//button[@routerlink="/dashboard/cart"]').click()
+
+//click on home page for move back
+
+  await highlight(page,'//button[normalize-space()="HOME"]')
+  await page.locator('//button[normalize-space()="HOME"]').click()
+
   //Filter the products
   await highlight(page, "//section[@id='sidebar']//input[@placeholder='search']")
 
@@ -268,33 +289,40 @@ test('Verify the user register', async ({ page }) => {
   await highlight(page, '//input[@class="input txt text-validated ng-untouched ng-pristine ng-valid"]')
   await page.locator('//input[@class="input txt text-validated ng-untouched ng-pristine ng-valid"]').fill(username)
 
-  /*
-  // Click input
-  await page.locator('input[placeholder="Select Country"]').click();
-  
-  await page.locator('input[placeholder="Select Country"]').fill('Afghanistan');
-  
-  // Press Arrow Down
-  await page.keyboard.press('ArrowDown');
-  // Press Enter to select first option
-  await page.keyboard.press('Enter');
-  await page.getByText('Afghanistan', { exact: true })
-  
-  */
-
+ 
+//Handle dynamic country selector 
   const Countryselect = page.locator('//input[@placeholder="Select Country"]')
   await Countryselect.clear({ delay: 1000 })
   await Countryselect.pressSequentially('afg', { delay: 1000 })
   await page.locator("//section[@class='ta-results list-group ng-star-inserted']").getByRole('button')
     .filter({ hasText: ' Afghanistan' }).click()
 
-
+//Click the place order button
   await page.locator('a:has-text("PLACE ORDER")').click()
 
-
+  //History page
+   await highlight(page, '//label[normalize-space()="Orders History Page"]')
   await page.locator('//label[normalize-space()="Orders History Page"]').click()
 
-  await page.locator('//button[normalize-space()="Click To Download Order Details in CSV"]').click()
+  await highlight(page, '//h1[normalize-space()="Your Orders"]')
+  await expect(page.locator('//h1[normalize-space()="Your Orders"]')).toHaveText('Your Orders')
+
+ await highlight(page, '//tbody/tr[1]/td[5]/button[1]')
+ await page.locator('//tbody/tr[1]/td[5]/button[1]').click()
+
+ await highlight(page, '//div[@class="email-title"]')
+await expect(page.locator('//div[@class="email-title"]')).toContainText(' order summary ')
+
+await highlight(page, '//div[@class="artwork-card-image"]//img')
+await page.locator('//div[@class="artwork-card-image"]//img')
+
+await highlight(page, '//div[@class="btn -teal"]')
+await page.locator('//div[@class="btn -teal"]').click()
+
+// click on go back to cart button
+
+await highlight(page, '//button[normalize-space()="Go Back to Cart"]')
+await page.locator('//button[normalize-space()="Go Back to Cart"]').click()
 
 
 
